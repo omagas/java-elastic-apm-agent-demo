@@ -48,3 +48,24 @@ docker-compose down
 ## Troubleshooting
 - **Connection Refused**: Ensure the container is running (`docker ps`) and fully healthy.
 - **Port Conflict**: If port 3306 is already in use by another MySQL instance, modify `docker-compose.yml` to use a different host port (e.g., `"3307:3306"`) and update the URL in `Main.java`.
+
+## Database Management
+
+### Connecting to the Container
+To access the MySQL shell inside the running container:
+
+```bash
+podman exec -it mysql-docker-container mysql -uroot -proot_password
+```
+
+### Manual Database Setup
+If needed (e.g., if not using the provided `docker-compose.yml`), you can run these SQL commands after connecting:
+
+```sql
+create database db_example;
+create user 'springuser'@'%' identified by 'ThePassword';
+grant all on db_example.* to 'springuser'@'%';
+show databases;
+SELECT User, Host FROM mysql.user;
+```
+
