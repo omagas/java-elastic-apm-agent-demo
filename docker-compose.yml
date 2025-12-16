@@ -1,0 +1,17 @@
+services:
+  db:
+    image: mysql:5.7
+    container_name: mysql-docker-container
+    restart: always
+    environment:
+      MYSQL_DATABASE: db_example
+      MYSQL_USER: springuser
+      MYSQL_PASSWORD: ThePassword
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
