@@ -35,6 +35,8 @@ Or you can package and run the JAR:
 
 ```bash
 mvn clean package -DSkipTest
+
+mvn clean package -DskipTests > build_output.log 2>&1
 java -cp "target/mysql-docker-sample-1.0-SNAPSHOT.jar;target/dependency/*" com.example.Main
 ```
 
@@ -85,4 +87,12 @@ java -javaagent:java-monitoring/agent/elastic-apm-agent-1.45.0.jar \
  -Delastic.apm.secret_token= \
  -Delastic.apm.application_packages=com.example \
  -jar mysql-service/target/mysql-service-0.0.1-SNAPSHOT.jar
+```
+
+# TEST
+
+```bash
+curl localhost:8080/friend/add -d name=JaneCH 
+curl localhost:8080/friend/all  
+curl -XPOST "http://localhost:8080/friend/all"
 ```

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import co.elastic.apm.api.CaptureSpan;
 
 @Controller
 @RequestMapping(path = "/friend")
@@ -14,8 +15,18 @@ public class MainController {
     @Autowired
     private FriendRepository friendRepository;
 
+    @CaptureSpan(value = "delay")
+    public void delay(int length) {
+        try {
+            Thread.sleep(length);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @PostMapping(path = "/add")
     public @ResponseBody String addNewFriend(@RequestParam String name) {
+        delay(1000);
         Friend friend = new Friend();
         friend.setName(name);
         friendRepository.save(friend);
