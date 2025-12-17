@@ -34,7 +34,7 @@ mvn clean compile exec:java
 Or you can package and run the JAR:
 
 ```bash
-mvn clean package
+mvn clean package -DSkipTest
 java -cp "target/mysql-docker-sample-1.0-SNAPSHOT.jar;target/dependency/*" com.example.Main
 ```
 
