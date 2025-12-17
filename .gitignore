@@ -39,5 +39,5 @@ build/
 *.json
 *.gz
 *.zip
-mysql-service/build_err.txt
 trace-sample.txt
+mysql-service/build_err*
