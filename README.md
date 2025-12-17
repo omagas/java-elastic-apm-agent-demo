@@ -74,12 +74,15 @@ curl localhost:8080/friend/all
 
 # APM Agent
 ### install
+```bash
 curl -L -O https://artifacts.elastic.co/downloads/beats/elastic-apm-agent/elastic-apm-agent-1.45.0.jar
-
+```
 ### run
+```bash
 java -javaagent:java-monitoring/agent/elastic-apm-agent-1.45.0.jar \
  -Delastic.apm.service_name=mysqlservice \
  -Delastic.apm.server_urls= \
  -Delastic.apm.secret_token= \
  -Delastic.apm.application_packages=com.example \
  -jar mysql-service/target/mysql-service-0.0.1-SNAPSHOT.jar
+```
