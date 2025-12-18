@@ -33,11 +33,11 @@ public class MainController {
     @PostMapping(path = "/add")
     public @ResponseBody String addNewFriend(@RequestParam String name) {
         logger.info("adding new friend: " + name + ".");
-        delay(1000);
+        delay(10000);
         Friend friend = new Friend();
         friend.setName(name);
         friendRepository.save(friend);
-        logger.info("added: " + name);
+        logger.info("added: " + name + ".10 seconds");
         return "Saved";
     }
 
