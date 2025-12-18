@@ -33,16 +33,25 @@ public class MainController {
     @PostMapping(path = "/add")
     public @ResponseBody String addNewFriend(@RequestParam String name) {
         logger.info("adding new friend: " + name + ".");
-        delay(10000);
+        delay(1000);
         Friend friend = new Friend();
         friend.setName(name);
         friendRepository.save(friend);
-        logger.info("added: " + name + ".10 seconds");
+        logger.info("added: " + name);
         return "Saved";
     }
 
     @GetMapping(path = "/all")
     public @ResponseBody Iterable<Friend> getAllFriends() {
+        double r = Math.random();
+        // generate an unexpected delay (with prob = .01%)
+        if (r < 0.0001) {
+            r = Math.random();
+            int ms = (int) (r * 8000);
+            logger.warn("Unexpected " + ms + "ms delay start.");
+            delay(ms);
+            logger.warn("Unexpected " + ms + "ms delay end.");
+        }
         return friendRepository.findAll();
     }
 }
