@@ -38,6 +38,8 @@ mvn clean package -DSkipTest
 
 mvn clean package -DskipTests > build_output.log 2>&1
 java -cp "target/mysql-docker-sample-1.0-SNAPSHOT.jar;target/dependency/*" com.example.Main
+
+java -jar target/mysql-service-0.0.1-SNAPSHOT.jar
 ```
 
 ### 3. Cleanup
@@ -96,3 +98,13 @@ curl localhost:8080/friend/add -d name=JaneCH
 curl localhost:8080/friend/all  
 curl -XPOST "http://localhost:8080/friend/all"
 ```
+
+
+# Frontend
+```bash
+mvn clean package -DskipTests
+java -jar target/frontend-0.0.1-SNAPSHOT.jar
+```
+
+
+
