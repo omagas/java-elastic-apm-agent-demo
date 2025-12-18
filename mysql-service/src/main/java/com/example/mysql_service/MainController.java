@@ -54,4 +54,18 @@ public class MainController {
         }
         return friendRepository.findAll();
     }
+
+    @GetMapping(path = "/unexpected")
+    public @ResponseBody Iterable<Friend> getUnexpected() {
+        double r = Math.random();
+        // generate an unexpected delay (with prob = .01%)
+        if (r < 1.0) {
+            r = Math.random();
+            int ms = (int) (r * 8000);
+            logger.warn("Unexpected " + ms + "ms delay start.");
+            delay(ms);
+            logger.warn("Unexpected " + ms + "ms delay end.");
+        }
+        return friendRepository.findAll();
+    }
 }

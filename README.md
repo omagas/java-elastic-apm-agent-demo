@@ -91,20 +91,37 @@ java -javaagent:java-monitoring/agent/elastic-apm-agent-1.45.0.jar \
  -jar mysql-service/target/mysql-service-0.0.1-SNAPSHOT.jar
 ```
 
-# TEST
 
-```bash
-curl localhost:8080/friend/add -d name=JaneCH 
-curl localhost:8080/friend/all  
-curl -XPOST "http://localhost:8080/friend/all"
-```
 
 
 # Frontend
 ```bash
 mvn clean package -DskipTests
 java -jar target/frontend-0.0.1-SNAPSHOT.jar
+
+java -javaagent:java-monitoring/agent/elastic-apm-agent-1.45.0.jar \ 
+  -Delastic.apm.service_name=frontend \ 
+  -Delastic.apm.server_urls=<YOUR_SERVER_URL> \ 
+  -Delastic.apm.secret_token=<YOUR_SECRET_TOKEN> \ 
+  -Delastic.apm.application_packages=com.example \ 
+  -jar target/frontend-0.0.1-SNAPSHOT.jar
 ```
 
 
 
+# Traffic Sim
+```bash
+mvn clean package -DskipTests
+java -jar target/trafficsim-0.0.1-SNAPSHOT.jar
+```
+
+
+
+# TEST
+
+```bash
+curl localhost:8080/friend/add -d name=JaneCH 
+curl localhost:8080/friend/all  
+curl -XPOST "http://localhost:8080/friend/all"
+curl http://localhost:8080/friend/unexpected
+```

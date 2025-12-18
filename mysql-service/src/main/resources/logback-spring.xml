@@ -16,7 +16,8 @@
         </rollingPolicy>
 
         <encoder class="co.elastic.logging.logback.EcsEncoder">
-            <serviceName>my-application</serviceName> </encoder>
+            <serviceName>my-application</serviceName> 
+        </encoder>
     </appender>
 
     <root level="INFO">
