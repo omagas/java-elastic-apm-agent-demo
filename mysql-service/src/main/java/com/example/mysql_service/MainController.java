@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import co.elastic.apm.api.CaptureSpan;
+import co.elastic.apm.api.ElasticApm;
+import co.elastic.apm.api.Span;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,5 +69,19 @@ public class MainController {
             logger.warn("Unexpected " + ms + "ms delay end.");
         }
         return friendRepository.findAll();
+    }
+
+    @GetMapping(path = "/redis")
+    public @ResponseBody String simulateRedis() {
+        Span span = ElasticApm.currentSpan().startSpan("db", "redis", "query");
+        span.setName("SET key value");
+        try {
+            Thread.sleep(50); // Simulate latency
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            span.end();
+        }
+        return "Simulated Redis Span";
     }
 }
