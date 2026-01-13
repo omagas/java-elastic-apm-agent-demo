@@ -1,7 +1,7 @@
 services:
   db:
     image: mysql:5.7
-    container_name: mysql-docker-container
+    container_name: mysql-docker-container-v2
     restart: always
     environment:
       MYSQL_DATABASE: db_example
@@ -13,5 +13,18 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
+  postgres:
+    image: postgres:15
+    container_name: postgres-container
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: customerdb
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data_v2:/var/lib/postgresql/data
+
 volumes:
   db_data:
+  postgres_data_v2:
